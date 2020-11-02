@@ -16,31 +16,31 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
-    @NotEmpty
+    @NotEmpty(message = "The first name field must not be empty")
     private String firstName;
-    @NotEmpty
+    @NotEmpty(message = "The last name field must not be empty")
     private String lastName;
-    @NotNull
+    @NotNull(message = "The day of birth field must not be empty")
     private Integer birthDay;
-    @NotNull
+    @NotNull(message = "The month of birth field must not be empty")
     private Integer birthMonth;
-    @NotNull
+    @NotNull(message = "The year of birth field must not be empty")
     private Integer birthYear;
-    @NotEmpty
+    @NotEmpty(message = "The login field must not be empty")
     @UniqueLogin
     private String login;
-    @NotEmpty
+    @NotEmpty(message = "The password field must not be empty")
     private String password;
-    @NotEmpty
+    @NotEmpty(message = "The about field must not be empty")
     @Length(max = 100)
     private String about;
-    @NotEmpty
+    @NotEmpty(message = "The country field must not be empty")
     private String country;
-    @NotEmpty
+    @NotEmpty(message = "The city field must not be empty")
     private String city;
-    @NotEmpty
+    @NotEmpty(message = "The street field must not be empty")
     private String street;
-    @NotNull
+    @NotNull(message = "The house number field must not be empty")
     private Integer houseNo;
 
     public User getUserEntity() {
