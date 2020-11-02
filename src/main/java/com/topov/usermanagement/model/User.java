@@ -23,7 +23,7 @@ public class User {
     private String lastName;
     @Column
     private LocalDate birthDate;
-    @Column
+    @Column(unique = true)
     private String login;
     @Column
     private String password;
