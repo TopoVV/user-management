@@ -16,6 +16,6 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<InvalidInputResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity.badRequest().body(new InvalidInputResponse(e.getBindingResult(), "Invalid input"));
+        return ResponseEntity.badRequest().body(new InvalidInputResponse(e.getBindingResult()));
     }
 }

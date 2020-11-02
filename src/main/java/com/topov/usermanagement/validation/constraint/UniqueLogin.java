@@ -1,6 +1,7 @@
 package com.topov.usermanagement.validation.constraint;
 
 import com.topov.usermanagement.validation.validator.UniqueLoginConstraintValidator;
+import com.topov.usermanagement.validation.validator.UserUpdateValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,7 +11,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(
-        validatedBy = { UniqueLoginConstraintValidator.class }
+        validatedBy = { UniqueLoginConstraintValidator.class, UserUpdateValidator.class}
 )
 public @interface UniqueLogin {
     String message() default "This login is already in use";
