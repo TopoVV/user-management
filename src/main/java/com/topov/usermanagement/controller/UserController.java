@@ -5,6 +5,7 @@ import com.topov.usermanagement.rest.request.UpdateUserRequest;
 import com.topov.usermanagement.rest.response.ApiResponse;
 import com.topov.usermanagement.service.UserService;
 import com.topov.usermanagement.service.result.UserCreateOperationResult;
+import com.topov.usermanagement.service.result.UserDeleteOperationResult;
 import com.topov.usermanagement.service.result.UserUpdateOperationResult;
 import com.topov.usermanagement.validation.InvalidInputResponse;
 import com.topov.usermanagement.validation.UserUpdateValidation;
@@ -48,6 +49,12 @@ public class UserController {
         }
 
         UserUpdateOperationResult result = userService.updateUser(updateUserRequest, userId);
+        return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {
+        UserDeleteOperationResult result = userService.deleteUser(userId);
         return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
     }
 }

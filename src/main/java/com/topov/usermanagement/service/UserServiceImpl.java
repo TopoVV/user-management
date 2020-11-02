@@ -8,6 +8,7 @@ import com.topov.usermanagement.repository.UserRepository;
 import com.topov.usermanagement.rest.request.CreateUserRequest;
 import com.topov.usermanagement.rest.request.UpdateUserRequest;
 import com.topov.usermanagement.service.result.UserCreateOperationResult;
+import com.topov.usermanagement.service.result.UserDeleteOperationResult;
 import com.topov.usermanagement.service.result.UserUpdateOperationResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +60,26 @@ public class UserServiceImpl implements UserService {
 
                     user.setAbout(updateUserRequest.getAbout());
                     user.setAddress(updateUserRequest.getAddress());
+                    userRepository.flush();
                     return user;
-                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                    log.error("Some conflict occurred during user edition", e);
-                    throw new UserManagementException("Some conflict occurred during user edition. Try again later", e, HttpStatus.CONFLICT);
+                } catch (NoSuchAlgorithmException | UnsupportedEncodingException | DataIntegrityViolationException e) {
+                    log.error("An error occurred during user edition", e);
+                    throw new UserManagementException("Some error occurred during user edition. Try again later", e, HttpStatus.CONFLICT);
                 }
             })
             .map(UserDto::new)
             .map(userDto -> new UserUpdateOperationResult("The user has been edited", HttpStatus.OK, userDto))
             .orElse(new UserUpdateOperationResult("User not found", HttpStatus.NOT_FOUND, null));
+    }
+
+    @Override
+    @Transactional
+    public UserDeleteOperationResult deleteUser(Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    userRepository.delete(user);
+                    return new UserDeleteOperationResult("The user has been deleted", HttpStatus.OK);
+                })
+                .orElse(new UserDeleteOperationResult("User not found", HttpStatus.NOT_FOUND));
     }
 }
