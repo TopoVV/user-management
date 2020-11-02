@@ -1,20 +1,29 @@
 package com.topov.usermanagement.rest.request;
 
+import com.topov.usermanagement.exception.UserManagementException;
 import com.topov.usermanagement.model.Address;
 import com.topov.usermanagement.model.User;
+import com.topov.usermanagement.service.PasswordEncoder;
 import com.topov.usermanagement.validation.constraint.UniqueLogin;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class CreateUserRequest {
     @NotEmpty(message = "The first name field must not be empty")
     private String firstName;
@@ -43,8 +52,23 @@ public class CreateUserRequest {
     @NotNull(message = "The house number field must not be empty")
     private Integer houseNo;
 
-    public User getUserEntity() {
-        Address address = new Address(country, city, street, houseNo);
-        return new User(firstName, lastName, LocalDate.of(birthYear, birthMonth, birthDay), login, password, about, address);
+    public User getUserEntity(PasswordEncoder encoder) {
+        try {
+            Address address = new Address(country, city, street, houseNo);
+            String encodedPassword = encoder.encodePassword(password);
+            return new User(
+                    firstName,
+                    lastName,
+                    LocalDate.of(birthYear, birthMonth, birthDay),
+                    login,
+                    encodedPassword.toString(),
+                    about,
+                    address
+            );
+
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            log.error("Error during extraction the User entity from CreateUserRequest", e);
+            throw new UserManagementException("Cannot create user", e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
