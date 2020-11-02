@@ -2,6 +2,7 @@ package com.topov.usermanagement.rest.request;
 
 import com.topov.usermanagement.model.Address;
 import com.topov.usermanagement.validation.constraint.UniqueLogin;
+import com.topov.usermanagement.validation.constraint.ValidDate;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
@@ -15,12 +16,8 @@ public class UpdateUserRequest {
     private String firstName;
     @NotEmpty(message = "The last name field must not be empty")
     private String lastName;
-    @NotNull(message = "The day of birth field must not be empty")
-    private Integer birthDay;
-    @NotNull(message = "The month of birth field must not be empty")
-    private Integer birthMonth;
-    @NotNull(message = "The year of birth field must not be empty")
-    private Integer birthYear;
+    @ValidDate
+    private BirthDate birthDate;
     @NotEmpty(message = "The login field must not be empty")
     private String login;
     @NotEmpty(message = "The password field must not be empty")
@@ -38,8 +35,8 @@ public class UpdateUserRequest {
     private Integer houseNo;
 
 
-    public LocalDate getBirthDate() {
-        return LocalDate.of(birthYear, birthMonth, birthDay);
+    public BirthDate getBirthDate() {
+        return birthDate;
     }
 
     public Address getAddress() {

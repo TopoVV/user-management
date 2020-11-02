@@ -2,10 +2,14 @@ package com.topov.usermanagement.dto;
 
 import com.topov.usermanagement.model.Address;
 import com.topov.usermanagement.model.User;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Getter
+@NoArgsConstructor
 public class UserDto {
     private Long userId;
     private String firstName;

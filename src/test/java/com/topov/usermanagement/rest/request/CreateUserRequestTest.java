@@ -12,16 +12,14 @@ class CreateUserRequestTest {
     public void mustBeCorrectBirthDate() {
         CreateUserRequest request = new CreateUserRequest("vlad",
                 "topov",
-                22,
-                1,
-                2001,
+                new BirthDate("22", "1", "2001"),
                 "vladlogin",
                 "password",
                 "123",
                 "Ukraine",
                 "Odessa",
                 "som",
-                4);
+                "4");
         User userEntity = request.getUserEntity(encoder);
         assertNotNull(userEntity.getBirthDate());
         assertEquals("2001-01-22", userEntity.getBirthDate().toString());

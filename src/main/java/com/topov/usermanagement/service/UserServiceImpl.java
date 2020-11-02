@@ -2,14 +2,11 @@ package com.topov.usermanagement.service;
 
 import com.topov.usermanagement.dto.UserDto;
 import com.topov.usermanagement.exception.UserManagementException;
-import com.topov.usermanagement.model.Address;
 import com.topov.usermanagement.model.User;
 import com.topov.usermanagement.repository.UserRepository;
 import com.topov.usermanagement.rest.request.CreateUserRequest;
 import com.topov.usermanagement.rest.request.UpdateUserRequest;
-import com.topov.usermanagement.service.result.UserCreateOperationResult;
-import com.topov.usermanagement.service.result.UserDeleteOperationResult;
-import com.topov.usermanagement.service.result.UserUpdateOperationResult;
+import com.topov.usermanagement.service.result.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,9 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.validation.Validator;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Slf4j
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
                 try {
                     user.setFirstName(updateUserRequest.getFirstName());
                     user.setLastName(updateUserRequest.getLastName());
-                    user.setBirthDate(updateUserRequest.getBirthDate());
+                    user.setBirthDate(updateUserRequest.getBirthDate().getDate());
                     user.setLogin(updateUserRequest.getLogin());
 
                     String encodedPassword = encoder.encodePassword(updateUserRequest.getPassword());
@@ -81,5 +80,23 @@ public class UserServiceImpl implements UserService {
                     return new UserDeleteOperationResult("The user has been deleted", HttpStatus.OK);
                 })
                 .orElse(new UserDeleteOperationResult("User not found", HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public GetAllUsersOperationResult getAllUsers() {
+        List<UserDto> users = userRepository.findAll()
+                .stream()
+                .map(UserDto::new)
+                .collect(toList());
+
+        return new GetAllUsersOperationResult("There are " + users.size() + " in the system", HttpStatus.OK, users);
+    }
+
+    @Override
+    public GetOneUserOperationResult getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .map(UserDto::new)
+                .map(userDto -> new GetOneUserOperationResult("Found", HttpStatus.OK, userDto))
+                .orElse(new GetOneUserOperationResult("User not found", HttpStatus.NOT_FOUND, null));
     }
 }

@@ -4,9 +4,7 @@ import com.topov.usermanagement.rest.request.CreateUserRequest;
 import com.topov.usermanagement.rest.request.UpdateUserRequest;
 import com.topov.usermanagement.rest.response.ApiResponse;
 import com.topov.usermanagement.service.UserService;
-import com.topov.usermanagement.service.result.UserCreateOperationResult;
-import com.topov.usermanagement.service.result.UserDeleteOperationResult;
-import com.topov.usermanagement.service.result.UserUpdateOperationResult;
+import com.topov.usermanagement.service.result.*;
 import com.topov.usermanagement.validation.InvalidInputResponse;
 import com.topov.usermanagement.validation.UserUpdateValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,18 @@ public class UserController {
     public UserController(UserService userService, Validator validator) {
         this.userService = userService;
         this.validator = validator;
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse> listAllUsers() {
+        GetAllUsersOperationResult result = userService.getAllUsers();
+        return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<ApiResponse> getOneUser(@PathVariable Long userId) {
+        GetOneUserOperationResult result = userService.getUserById(userId);
+        return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
     }
 
     @PostMapping
