@@ -8,9 +8,8 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Getter
-@Setter
 @NoArgsConstructor
-public class BirthDate {
+public class BirthDateDto {
     @NotEmpty(message = "The day of birth field must not be empty")
     private String birthDay;
     @NotEmpty(message = "The month of birth field must not be empty")
@@ -18,7 +17,7 @@ public class BirthDate {
     @NotEmpty(message = "The year of birth field must not be empty")
     private String birthYear;
 
-    public BirthDate(String birthDay, String birthMonth, String birthYear) {
+    public BirthDateDto(String birthDay, String birthMonth, String birthYear) {
         this.birthDay = birthDay;
         this.birthMonth = birthMonth;
         this.birthYear = birthYear;

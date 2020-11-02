@@ -10,16 +10,15 @@ class CreateUserRequestTest {
     private final PasswordEncoder encoder = new PasswordEncoder();
     @Test
     public void mustBeCorrectBirthDate() {
-        CreateUserRequest request = new CreateUserRequest("vlad",
+        CreateUserRequest request = new CreateUserRequest(
+                "vlad",
                 "topov",
-                new BirthDate("22", "1", "2001"),
                 "vladlogin",
                 "password",
                 "123",
-                "Ukraine",
-                "Odessa",
-                "som",
-                "4");
+                new BirthDateDto("22", "1", "2001"),
+                new AddressDto("Ukraine", "Odessa", "som", "55")
+        );
         User userEntity = request.getUserEntity(encoder);
         assertNotNull(userEntity.getBirthDate());
         assertEquals("2001-01-22", userEntity.getBirthDate().toString());

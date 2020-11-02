@@ -1,15 +1,14 @@
 package com.topov.usermanagement.validation.validator;
 
-import com.topov.usermanagement.rest.request.BirthDate;
-import com.topov.usermanagement.rest.request.CreateUserRequest;
+import com.topov.usermanagement.rest.request.BirthDateDto;
 import com.topov.usermanagement.validation.constraint.ValidDate;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class DateValidator implements ConstraintValidator<ValidDate, BirthDate> {
+public class DateValidator implements ConstraintValidator<ValidDate, BirthDateDto> {
     @Override
-    public boolean isValid(BirthDate birthDate, ConstraintValidatorContext ctx) {
+    public boolean isValid(BirthDateDto birthDate, ConstraintValidatorContext ctx) {
         int day;
         int month;
         int year;
