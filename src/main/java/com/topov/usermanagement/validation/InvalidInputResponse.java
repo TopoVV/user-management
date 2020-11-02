@@ -15,14 +15,14 @@ public class InvalidInputResponse extends ApiResponse {
     private final List<InvalidData> invalidityList = new ArrayList<>();
 
     public InvalidInputResponse(BindingResult bindingResult) {
-        super(HttpStatus.BAD_REQUEST, "Invalid input");
+        super("Invalid input");
         bindingResult.getFieldErrors().forEach(fieldError -> {
             invalidityList.add(new InvalidData(fieldError.getField(), fieldError.getDefaultMessage()));
         });
     }
 
     public InvalidInputResponse(Set<ConstraintViolation<UserUpdateValidation>> violations) {
-        super(HttpStatus.BAD_REQUEST, "Invalid input");
+        super("Invalid input");
         violations.forEach(violation -> {
             String property = violation.getMessageTemplate();
             String message = violation.getMessage();

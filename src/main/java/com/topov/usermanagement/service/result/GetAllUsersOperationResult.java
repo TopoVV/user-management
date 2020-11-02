@@ -19,6 +19,6 @@ public class GetAllUsersOperationResult extends OperationResult{
 
     @Override
     public ApiResponse getResponseBody() {
-        return new GetAllUsersResponse(status, message, users);
+        return new GetAllUsersResponse(message, users);
     }
 }

@@ -8,6 +8,7 @@ import com.topov.usermanagement.service.result.*;
 import com.topov.usermanagement.validation.InvalidInputResponse;
 import com.topov.usermanagement.validation.UserUpdateValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,7 @@ public class UserController {
 
         if (!violations.isEmpty()) {
             InvalidInputResponse response = new InvalidInputResponse(violations);
-            return ResponseEntity.status(response.getStatus()).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         UserUpdateOperationResult result = userService.updateUser(updateUserRequest, userId);

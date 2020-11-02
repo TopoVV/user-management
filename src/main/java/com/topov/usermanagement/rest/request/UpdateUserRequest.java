@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Getter
 public class UpdateUserRequest {
@@ -26,7 +25,6 @@ public class UpdateUserRequest {
     private BirthDateDto birthDate;
     @Valid
     private AddressDto address;
-
 
     public BirthDateDto getBirthDate() {
         return birthDate;

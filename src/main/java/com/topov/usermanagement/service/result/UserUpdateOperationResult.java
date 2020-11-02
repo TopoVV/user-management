@@ -15,6 +15,6 @@ public class UserUpdateOperationResult extends OperationResult {
 
     @Override
     public ApiResponse getResponseBody() {
-        return new UpdateUserResponse(status, message, userDto);
+        return new UpdateUserResponse(message, userDto);
     }
 }

@@ -25,6 +25,7 @@ import static java.util.stream.Collectors.toList;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder = new PasswordEncoder();
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
                 .map(UserDto::new)
                 .collect(toList());
 
-        return new GetAllUsersOperationResult("There are " + users.size() + " in the system", HttpStatus.OK, users);
+        return new GetAllUsersOperationResult("There are " + users.size() + " users in the system", HttpStatus.OK, users);
     }
 
     @Override
