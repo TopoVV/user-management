@@ -20,6 +20,7 @@
   <name>User Management Maven Webapp</name>
 
   <properties>
+    <start-class>com.topov.usermanagement.UserManagementApp</start-class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <lombok.version>1.18.12</lombok.version>
     <h2.version>1.4.200</h2.version>
@@ -39,6 +40,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
     <dependency>
@@ -77,7 +82,6 @@
 
   <build>
     <finalName>user-management</finalName>
-    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.springframework.boot</groupId>
@@ -85,6 +89,5 @@
           <version>2.1.5.RELEASE</version>
         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 </project>
