@@ -11,6 +11,6 @@ public class UserDeleteOperationResult extends OperationResult {
 
     @Override
     public ApiResponse getResponseBody() {
-        return new DeleteUserResponse(status, message);
+        return new DeleteUserResponse(message);
     }
 }

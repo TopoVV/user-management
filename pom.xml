@@ -20,10 +20,12 @@
   <name>User Management Maven Webapp</name>
 
   <properties>
+    <start-class>com.topov.usermanagement.UserManagementApp</start-class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <lombok.version>1.18.12</lombok.version>
     <h2.version>1.4.200</h2.version>
     <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
+    <postgresql.version>42.2.14</postgresql.version>
   </properties>
 
   <dependencies>
@@ -38,6 +40,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
     <dependency>
@@ -55,6 +61,11 @@
       <artifactId>hibernate-validator</artifactId>
       <version>${hibernate.validator.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -71,21 +82,12 @@
 
   <build>
     <finalName>user-management</finalName>
-    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>2.1.5.RELEASE</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>repackage</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 </project>

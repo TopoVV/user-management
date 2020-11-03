@@ -66,9 +66,9 @@ public class DateValidator implements ConstraintValidator<ValidDate, BirthDateDt
                     .addConstraintViolation();
             valid = false;
 
-        } else if (month == 2 && (day < 1 || day > 28)) {
+        } else if (month == 2 && (day < 1 || day > 29)) { // February has 29 days
             ctx.disableDefaultConstraintViolation();
-            ctx.buildConstraintViolationWithTemplate("The day of February must be between 1 and 28")
+            ctx.buildConstraintViolationWithTemplate("The day of February must be between 1 and 29")
                     .addPropertyNode("birthDay")
                     .addConstraintViolation();
             valid = false;

@@ -12,6 +12,6 @@ public class UserCreateOperationResult extends OperationResult {
 
     @Override
     public ApiResponse getResponseBody() {
-        return new CreateUserResponse(status, message);
+        return new CreateUserResponse(message);
     }
 }

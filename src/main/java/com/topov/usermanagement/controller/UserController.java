@@ -8,7 +8,10 @@ import com.topov.usermanagement.service.result.*;
 import com.topov.usermanagement.validation.InvalidInputResponse;
 import com.topov.usermanagement.validation.UserUpdateValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
@@ -40,7 +43,7 @@ public class UserController {
         return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         UserCreateOperationResult result = userService.createUser(createUserRequest);
         return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
@@ -55,12 +58,13 @@ public class UserController {
 
         if (!violations.isEmpty()) {
             InvalidInputResponse response = new InvalidInputResponse(violations);
-            return ResponseEntity.status(response.getStatus()).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         UserUpdateOperationResult result = userService.updateUser(updateUserRequest, userId);
         return ResponseEntity.status(result.getStatus()).body(result.getResponseBody());
     }
+
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {

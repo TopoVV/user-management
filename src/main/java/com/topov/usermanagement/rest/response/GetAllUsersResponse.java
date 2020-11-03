@@ -11,8 +11,8 @@ import java.util.List;
 public class GetAllUsersResponse extends ApiResponse {
     public final List<UserDto> users;
 
-    public GetAllUsersResponse(HttpStatus status, String message, List<UserDto> users) {
-        super(status, message);
+    public GetAllUsersResponse(String message, List<UserDto> users) {
+        super(message);
         this.users = users;
     }
 }

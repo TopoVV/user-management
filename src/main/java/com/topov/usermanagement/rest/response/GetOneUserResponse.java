@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 public class GetOneUserResponse extends ApiResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UserDto user;
-    public GetOneUserResponse(HttpStatus status, String message, UserDto user) {
-        super(status, message);
+    public GetOneUserResponse(String message, UserDto user) {
+        super(message);
         this.user = user;
     }
 

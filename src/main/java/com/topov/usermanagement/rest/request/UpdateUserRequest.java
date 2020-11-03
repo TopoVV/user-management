@@ -2,14 +2,17 @@ package com.topov.usermanagement.rest.request;
 
 import com.topov.usermanagement.model.Address;
 import com.topov.usermanagement.validation.constraint.ValidDate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateUserRequest {
     @NotEmpty(message = "The first name field must not be empty")
     private String firstName;
@@ -26,7 +29,6 @@ public class UpdateUserRequest {
     private BirthDateDto birthDate;
     @Valid
     private AddressDto address;
-
 
     public BirthDateDto getBirthDate() {
         return birthDate;

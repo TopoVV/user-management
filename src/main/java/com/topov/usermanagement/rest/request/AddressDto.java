@@ -6,6 +6,10 @@ import lombok.Getter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+/**
+ * DTO class for the address data separation in requests.
+ */
+
 @Getter
 public class AddressDto {
     @NotEmpty(message = "The country field must not be empty")

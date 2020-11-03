@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * DTO class for User data representation in REST responses.
+ */
+
 @Getter
 @NoArgsConstructor
 public class UserDto {

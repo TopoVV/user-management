@@ -11,6 +11,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
+/**
+ * Class to perform MD5 hashing of the password before saving it into the database.
+ */
+
 @Service
 public class PasswordEncoder {
     public String encodePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {

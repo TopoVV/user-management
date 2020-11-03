@@ -7,6 +7,11 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
+
+/**
+ * DTO class for birth date data separation in requests.
+ */
+
 @Getter
 @NoArgsConstructor
 public class BirthDateDto {
