@@ -12,9 +12,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "app_users")
 @NoArgsConstructor
+@SequenceGenerator(name = "user_id_gen", sequenceName = "user_id_seq", allocationSize = 1)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "user_id_gen", strategy = GenerationType.SEQUENCE)
     private Long userId;
     @Column
     private String firstName;

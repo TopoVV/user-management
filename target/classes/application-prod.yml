@@ -4,10 +4,11 @@ spring:
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    initialization-mode: always
 
   jpa:
    show-sql: true
    hibernate:
-     ddl-auto: create
+     ddl-auto: none
    properties:
      format_sql: true
